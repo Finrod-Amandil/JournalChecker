@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!-- IMPORTANT: DO NOT CHANGE the <!--CPS ... COMMENTS!-->
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		
+		<title>JournalChecker HTML-Report</title>
+		
+		<style>
+			body {
+				padding: 10px;
+			}
+			h2 {
+				font-size: 20px;
+				font-style: italic;
+				color: darkgray;
+			}
+			h3 {
+				font-size: 26px;
+			}
+			h4 {
+				font-size: 16px;
+			}
+			table {
+				white-space: nowrap;
+			}
+			tr {
+				height: 30px;
+				min-height: 30px;
+			}
+			td {
+				width: 30px;
+				min-width: 30px;
+			}
+			td, th {
+				padding: 4px;
+			}
+			.text-top {
+				vertical-align: top;
+			}
+			.text-centered th {
+				text-align: center;
+			}
+			.apprentice-row:hover {
+				border: 2px solid blue;
+			}
+			.s0 {
+				background-color: limegreen;
+			}
+			.s1 {
+				background-color: gold;
+			}
+			.s3 {
+				background-color: darkorange;
+			}
+			.s2 {
+				background-color: red;
+			}
+			.s4 {
+				background-color: lightgray;
+			}
+			
+			.s0:hover {
+				background-color: forestgreen;
+			}
+			.s1:hover {
+				background-color: orange;
+			}
+			.s3:hover {
+				background-color: orangered;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+		<h1 id="top">
+			JournalChecker HTML-Report
+		</h1>
+		<h2>
+			Arbeitsjournal-Check von $startWeek bis $endWeek
+		</h2>
+		<br>
+		<h4>Durchsuchte Verzeichnisse:</h4>
+		<ul>
+			<!--CPS_directoryList-->
+			<li>
+				<a href="$directory" target="_blank">$directoryDisplay</a>
+			</li>
+			<!--CPE_directoryList-->
+		</ul>
+		<hr>
+		<a href="#missing">&#8595; Fehlende Arbeitsjournale</a><br>
+		<a href="#duplicate">&#8595; Duplikatsverdachte</a><br>
+		<a href="#inconsistent">&#8595; Inkonsistente Dateibenennungen</a><br>
+		<hr>
+		<h3>
+			&Uuml;bersicht der Arbeitsjournale
+		</h3>
+		
+		<table class="table-bordered">
+			<thead>
+				<tr>
+					<th style="border: 0px;"></th>
+					<!--CPS_mainTableYear-->
+					<th colspan="$mainTableYearColCount">$mainTableYear</th>
+					<!--CPE_mainTableYear-->
+				</tr>
+				<tr class="text-centered">
+					<th style="border: 0px; text-align: right;">KW</th>
+					<!--CPS_mainTableWeek-->
+					<th>$mainTableWeek</th>
+					<!--CPE_mainTableWeek-->
+				</tr>
+			</thead>
+			<tbody>
+				<!--CPS_mainTableRow-->
+				<tr class="apprentice-row">
+					<th>$mainTableApprenticeName</th>
+					<!--CPS_mainTableCell-->
+					<td class="s$mainTableJournalStatus"$mainTableCellCmd></td>
+					<!--CPE_mainTableCell-->
+				</tr>
+				<!--CPE_mainTableRow-->
+			</tbody>
+		</table>
+		<br>
+		<h4>
+			Farblegende:
+		</h4>
+		<span style="color: limegreen;">&#9608;</span> Arbeitsjournal abgegeben.<br>
+		<span style="color: gold;">&#9608;</span> Arbeitsjournal abgegeben, aber Dateiname unkonventionell.<br>
+		<span style="color: darkorange;">&#9608;</span> Arbeitsjournal abgegeben, scheint aber Duplikat zu sein.<br>
+		<span style="color: red;">&#9608;</span> Arbeitsjournal nicht abgegeben oder nicht gefunden.<br>
+		<span style="color: lightgray;">&#9608;</span> Arbeitsjournal nicht abgegeben, Woche liegt in der Zukunft.<br>
+		<hr>
+			<div class="row">
+				<div class="col-lg-3">
+					<a id="missing" href="#top">&#8593; Nach oben</a>
+					<h3>Fehlende Arbeitsjournale</h3>
+					<table class="table-bordered">
+						<thead>
+							<tr>
+								<th>Lernender</th>
+								<th>Woche</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!--CPS_missingJournalRow-->
+							<tr>
+								<td>$missingJournalApprenticeName</td>
+								<td>$missingJournalWeek</td>
+							</tr>
+							<!--CPE_missingJournalRow-->
+						</tbody>
+					</table>
+				</div>
+				<div class="col-lg-9">
+					<h3>Unzugeordnete Word-Dokumente:</h3>
+					<table class="table-bordered">
+						<thead>
+							<tr>
+								<th>Speicherort</th>
+								<th>Dateiname</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!--CPS_otherDocRow-->
+							<tr>
+								<td><a href="$otherDocFilePath" target="_blank">$otherDocFilePathDisplay</a></td>
+								<td>$otherDocFileName</td>
+							</tr>
+							<!--CPE_otherDocRow-->
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<hr>
+			<a id="duplicate" href="#top">&#8593; Nach oben</a>
+			<h3>Duplikatsverdachte</h3>
+			<table class="table-bordered">
+				<thead>
+					<tr>
+						<th>Gruppe</th>
+						<th>Lernender</th>
+						<th>Woche</th>
+						<th>Speicherort</th>
+						<th>Dateiname</th>
+						<th>SHA1-Prüfsumme</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!--CPS_duplicateRow-->
+					<tr>
+						<!--CPS_duplicateGroup-->
+						<td rowspan="$duplicateRowCount" style="text-align: center; font-size: 28px;"><b>$duplicateRowNum</b></td>
+						<!--CPE_duplicateGroup-->
+						<td>$duplicateApprenticeName</td>
+						<td>$duplicateWeek</td>
+						<td><a href="$duplicateFilePath" target="_blank">$duplicateFilePathDisplay</a></td>
+						<td>$duplicateFileName</td>
+						<td>$duplicateChecksum</td>
+					</tr>
+					<!--CPE_duplicateRow-->
+				</tbody>
+			</table>
+			<hr>
+			<a id="inconsistent" href="#top">&#8593; Nach oben</a>
+			<h3>Inkonsistente Dateibenennungen</h3>
+			<table class="table-bordered">
+				<thead>
+					<tr>
+						<th>Lernender</th>
+						<th>Woche</th>
+						<th>Speicherort</th>
+						<th>Dateiname</th>
+						<th>Erwarteter Dateiname</th>
+						<th>Fehlermeldungen</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!--CPS_inconsistentFileRow-->
+					<tr>
+						<td class="text-top">$inconsistentFileApprenticeName</td>
+						<td class="text-top">$inconsistentFileWeek</td>
+						<td class="text-top"><a href="$inconsistentFilePath" target="_blank">$inconsistentFilePathDisplay</a></td>
+						<td class="text-top">$inconsistentFileName</td>
+						<td class="text-top">$inconsistentFileNameCorrected</td>
+						<td class="text-top">$inconsistentFileMsg</td>
+					</tr>
+					<!--CPE_inconsistentFileRow-->
+				</tbody>
+			</table>
+			<a href="#top">&#8593; Nach oben</a>
+		</div>
+	</body>
+</html>
